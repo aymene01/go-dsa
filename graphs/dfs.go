@@ -22,3 +22,30 @@ func dfs(graph map[string][]string, src, dst string, visited map[string]bool) bo
 func HasPath(graph map[string][]string, src, dst string) bool {
 	return dfs(graph, src, dst, make(map[string]bool))
 }
+
+
+func dfsIterative(graph map[string][]string, src, dst string) bool {
+	stack := []string{src}
+	visited := map[string]bool{
+		src: true,
+	}
+
+	for len(stack) > 0 {
+		current := stack[len(stack) - 1]
+		stack = stack[:len(stack) - 1]
+
+		if current == dst {
+			return true
+		}
+		
+		for _, neighbor := range graph[current] {
+			if _, ok := visited[neighbor]; !ok {
+				visited[neighbor] = true
+				stack = append(stack, neighbor)
+			}
+		}
+		
+	}
+
+	return false
+}
