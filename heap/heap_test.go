@@ -14,7 +14,7 @@ func TestHeap_Insert_And_Pop(t *testing.T) {
 	}
 
 	// Test popping single element
-	err, value := h.pop()
+	value, err := h.pop()
 	if err != nil {
 		t.Errorf("Expected no error, got: %v", err)
 	}
@@ -43,7 +43,7 @@ func TestHeap_MaxHeap_Property(t *testing.T) {
 			break
 		}
 		
-		err, value := h.pop()
+		value, err := h.pop()
 		if err != nil {
 			t.Errorf("Expected no error at iteration %d, got: %v", i, err)
 		}
@@ -60,7 +60,7 @@ func TestHeap_MaxHeap_Property(t *testing.T) {
 func TestHeap_Pop_Empty_Heap(t *testing.T) {
 	h := &Heap{}
 
-	err, value := h.pop()
+	value, err := h.pop()
 	if err == nil {
 		t.Error("Expected error when popping from empty heap")
 	}
@@ -93,15 +93,13 @@ func TestHeap_IsEmpty(t *testing.T) {
 func TestHeap_Large_Dataset(t *testing.T) {
 	h := &Heap{}
 	
-	// Insert 100 elements
 	for i := 1; i <= 100; i++ {
 		h.insert(i)
 	}
 
-	// Pop all elements - should be in descending order
-	lastValue := 101 // Start with value larger than any inserted
+	lastValue := 101
 	for i := 0; i < 100; i++ {
-		err, value := h.pop()
+		value, err := h.pop()
 		if err != nil {
 			t.Errorf("Unexpected error at iteration %d: %v", i, err)
 		}
@@ -124,7 +122,7 @@ func TestHeap_Duplicate_Values(t *testing.T) {
 	// Pop all elements
 	var result []int
 	for !h.isEmpty() {
-		err, value := h.pop()
+		value, err := h.pop()
 		if err != nil {
 			t.Errorf("Unexpected error: %v", err)
 		}
@@ -150,7 +148,7 @@ func TestHeap_Single_Element_Operations(t *testing.T) {
 	// Test multiple insert/pop cycles
 	for i := 0; i < 5; i++ {
 		h.insert(i * 10)
-		err, value := h.pop()
+		value, err := h.pop()
 		if err != nil {
 			t.Errorf("Unexpected error at cycle %d: %v", i, err)
 		}

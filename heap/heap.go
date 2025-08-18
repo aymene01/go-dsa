@@ -50,9 +50,9 @@ func(h *Heap) insert(value int){
 	h._bubbleUp(len(h.values) - 1)
 }
 
-func(h *Heap) pop() (error, int){
+func(h *Heap) pop() (int, error){
 	if h.isEmpty() {
-		return errors.New("the heap is empty nothing to pop"), 0
+		return 0, errors.New("the heap is empty nothing to pop")
 	}
 
 	value := h.values[0]
@@ -63,32 +63,8 @@ func(h *Heap) pop() (error, int){
 		h._bubbleDown(0)
 	}
 
-	return nil, value
+	return value, nil
 
-}
-
-
-type PriorityQueue struct {
-	heap Heap
-}
-
-func (p *PriorityQueue) isEmpty() bool {
-	return p.heap.isEmpty()
-}
-
-func (p *PriorityQueue) append(value int) {
-	p.heap.insert(value)
-}
-
-func (p *PriorityQueue) pop() (error, int) {
-	return p.heap.pop()
-}
-
-
-func NewPriorityQueue() *PriorityQueue {
-	return &PriorityQueue{
-		heap: Heap{},
-	}
 }
 
 
